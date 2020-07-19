@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>image slider</title>
+    <style>
+      .slider {
+        width: 700px;
+        height: 450px;
+        position: relative;
+      }
+      .image {
+        width: 700px;
+        height: 450px;
+        animation: smooth 1.2s;
+      }
+      .image img {
+        width: 100%;
+        height: 100%;
+      }
+      .left,
+      .right {
+        position: absolute;
+        font-size: 40px;
+        top: 50%;
+        color: black;
+        background-color: white;
+        transition: 0.5s;
+        padding: 4px;
+        display: none;
+      }
+      .right {
+        right: 0;
+      }
+      .left:hover,
+      .right:hover {
+        cursor: pointer;
+        font-size: 42px;
+        top: 50%;
+        color: white;
+        background-color: gray;
+      }
+      .slider:hover > .left,
+      .slider:hover > .right {
+        display: block;
+      }
+
+      @keyframes smooth {
+        from {
+          transform: scale(1.2);
+          opacity: 0.9;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <center class="image-slider">
+      <div class="slider">
+        <div class="image">
+          <img src="./img/img1.jpg" alt="" />
+        </div>
+        <div class="image">
+          <img src="./img/img2.jpg" alt="" />
+        </div>
+        <div class="image">
+          <img src="./img/img3.jpg" alt="" />
+        </div>
+        <div class="image">
+          <img src="./img/img4.jpg" alt="" />
+        </div>
+        <div class="left" onclick="manualSlide(-1)"><</div>
+        <div class="right" onclick="manualSlide(1)">></div>
+      </div>
+    </center>
+    <script>
+      var index = 0;
+      var images;
+      var time;
+
+      autoSlide();
+      function autoSlide(n) {
+        images = document.getElementsByClassName("image");
+
+        for (var i = 0; i < images.length; i++) {
+          images[i].style.display = "none";
+        }
+
+        if (index > images.length - 1) {
+          index = 0;
+        }
+        images[index].style.display = "block";
+        index++;
+
+        time = setTimeout(autoSlide, 5000);
+      }
+
+      function manualSlide(n) {
+        clearTimeout(time);
+        newIndex = index + n;
+        autoSlide(newIndex);
+      }
+    </script>
+  </body>
+</html>
